@@ -47,11 +47,11 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Skill $skillid = null;
 
-    /**
-     * @var Collection<int, Chantier>
-     */
-    #[ORM\ManyToMany(targetEntity: Chantier::class, inversedBy: 'users')]
-    private Collection $chantierid;
+    #[ORM\ManyToOne(inversedBy: 'userid')]
+    private ?UserChantier $userChantier = null;
+
+
+
 
     public function __construct()
     {
@@ -181,27 +181,16 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    /**
-     * @return Collection<int, Chantier>
-     */
-    public function getChantierid(): Collection
+    public function getUserChantier(): ?UserChantier
     {
-        return $this->chantierid;
+        return $this->userChantier;
     }
 
-    public function addChantierid(Chantier $chantierid): static
+    public function setUserChantier(?UserChantier $userChantier): static
     {
-        if (!$this->chantierid->contains($chantierid)) {
-            $this->chantierid->add($chantierid);
-        }
+        $this->userChantier = $userChantier;
 
         return $this;
     }
 
-    public function removeChantierid(Chantier $chantierid): static
-    {
-        $this->chantierid->removeElement($chantierid);
-
-        return $this;
-    }
 }

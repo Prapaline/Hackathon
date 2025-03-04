@@ -33,11 +33,10 @@ class Chantier
     #[ORM\Column]
     private ?\DateTimeImmutable $end_date = null;
 
-    /**
-     * @var Collection<int, User>
-     */
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'chantierid')]
-    private Collection $users;
+    #[ORM\ManyToOne(inversedBy: 'chantierid')]
+    private ?UserChantier $userChantier = null;
+
+    
 
     public function __construct()
     {
@@ -121,29 +120,14 @@ class Chantier
         return $this;
     }
 
-    /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
+    public function getUserChantier(): ?UserChantier
     {
-        return $this->users;
+        return $this->userChantier;
     }
 
-    public function addUser(User $user): static
+    public function setUserChantier(?UserChantier $userChantier): static
     {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->addChantierid($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUser(User $user): static
-    {
-        if ($this->users->removeElement($user)) {
-            $user->removeChantierid($this);
-        }
+        $this->userChantier = $userChantier;
 
         return $this;
     }
