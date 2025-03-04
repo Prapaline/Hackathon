@@ -3,43 +3,30 @@
 {% block title %}Chantier index{% endblock %}
 
 {% block body %}
-    <h1>Chantier index</h1>
+    <h1>Chantiers</h1>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Location</th>
-                <th>Description</th>
-                <th>Status</th>
-                <th>Start_date</th>
-                <th>End_date</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
+    <div class="row">
         {% for chantier in chantiers %}
-            <tr>
-                <td>{{ chantier.id }}</td>
-                <td>{{ chantier.name }}</td>
-                <td>{{ chantier.location }}</td>
-                <td>{{ chantier.description }}</td>
-                <td>{{ chantier.status }}</td>
-                <td>{{ chantier.startDate ? chantier.startDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>{{ chantier.endDate ? chantier.endDate|date('Y-m-d H:i:s') : '' }}</td>
-                <td>
-                    <a href="{{ path('app_chantier_show', {'id': chantier.id}) }}">show</a>
-                    <a href="{{ path('app_chantier_edit', {'id': chantier.id}) }}">edit</a>
-                </td>
-            </tr>
+            <div class="col-md-4">
+                <div class="card mb-4 shadow-sm">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ chantier.name }}</h5>
+                        <h6 class="card-subtitle mb-2 text-muted">{{ chantier.location }}</h6>
+                        <p class="card-text">{{ chantier.description }}</p>
+                        <p class="card-text"><strong>Status:</strong> {{ chantier.status }}</p>
+                        <p class="card-text"><strong>Start Date:</strong> {{ chantier.startDate ? chantier.startDate|date('Y-m-d') : 'N/A' }}</p>
+                        <p class="card-text"><strong>End Date:</strong> {{ chantier.endDate ? chantier.endDate|date('Y-m-d') : 'N/A' }}</p>
+                        <div class="d-flex justify-content-between">
+                            <a href="{{ path('app_chantier_show', {'id': chantier.id}) }}" class="btn btn-info btn-sm">View</a>
+                            <a href="{{ path('app_chantier_edit', {'id': chantier.id}) }}" class="btn btn-warning btn-sm">Edit</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         {% else %}
-            <tr>
-                <td colspan="8">no records found</td>
-            </tr>
+            <p>No records found</p>
         {% endfor %}
-        </tbody>
-    </table>
+    </div>
 
-    <a href="{{ path('app_chantier_new') }}">Create new</a>
+    <a href="{{ path('app_chantier_new') }}" class="btn btn-primary mt-4">Create New</a>
 {% endblock %}
