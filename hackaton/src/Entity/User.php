@@ -47,15 +47,20 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\ManyToOne(inversedBy: 'users')]
     private ?Skill $skillid = null;
 
-    #[ORM\ManyToOne(inversedBy: 'userid')]
-    private ?UserChantier $userChantier = null;
+    /**
+     * @var Collection<int, UserChantier>
+     */
+    #[ORM\OneToMany(targetEntity: UserChantier::class, mappedBy: 'userid')]
+    private Collection $userChantiers;
 
+    
 
 
 
     public function __construct()
     {
         $this->chantierid = new ArrayCollection();
+        $this->userChantiers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -181,14 +186,32 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
         return $this;
     }
 
-    public function getUserChantier(): ?UserChantier
+    /**
+     * @return Collection<int, UserChantier>
+     */
+    public function getUserChantiers(): Collection
     {
-        return $this->userChantier;
+        return $this->userChantiers;
     }
 
-    public function setUserChantier(?UserChantier $userChantier): static
+    public function addUserChantier(UserChantier $userChantier): static
     {
-        $this->userChantier = $userChantier;
+        if (!$this->userChantiers->contains($userChantier)) {
+            $this->userChantiers->add($userChantier);
+            $userChantier->setUserid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserChantier(UserChantier $userChantier): static
+    {
+        if ($this->userChantiers->removeElement($userChantier)) {
+            // set the owning side to null (unless already changed)
+            if ($userChantier->getUserid() === $this) {
+                $userChantier->setUserid(null);
+            }
+        }
 
         return $this;
     }

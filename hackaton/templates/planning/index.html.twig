@@ -1,0 +1,20 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Planning{% endblock %}
+
+{% block body %}
+<div class="container mx-auto mt-5">
+    <h2 class="text-2xl mb-4">Planning journalier</h2>
+
+    <div class="grid grid-cols-1 gap-4">
+        {% for mission in missions %}
+            <div class="p-4 border rounded-lg shadow-md bg-white">
+                <h3 class="text-lg font-semibold mb-2">{{ mission.chantierid.name }}</h3>
+                <p><strong>Adresse :</strong> {{ mission.chantierid.location }}</p>
+            </div>
+        {% else %}
+            <p>Aucune mission prévue pour aujourd'hui.</p>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}

@@ -33,14 +33,22 @@ class Chantier
     #[ORM\Column]
     private ?\DateTimeImmutable $end_date = null;
 
-    #[ORM\ManyToOne(inversedBy: 'chantierid')]
-    private ?UserChantier $userChantier = null;
+    /**
+     * @var Collection<int, User>
+     */
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'chantierid')]
+    private Collection $users;
 
-    
+    /**
+     * @var Collection<int, UserChantier>
+     */
+    #[ORM\OneToMany(targetEntity: UserChantier::class, mappedBy: 'chantierid')]
+    private Collection $userChantiers;
 
     public function __construct()
     {
         $this->users = new ArrayCollection();
+        $this->userChantiers = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -120,14 +128,59 @@ class Chantier
         return $this;
     }
 
-    public function getUserChantier(): ?UserChantier
+    /**
+     * @return Collection<int, User>
+     */
+    public function getUsers(): Collection
     {
-        return $this->userChantier;
+        return $this->users;
     }
 
-    public function setUserChantier(?UserChantier $userChantier): static
+    public function addUser(User $user): static
     {
-        $this->userChantier = $userChantier;
+        if (!$this->users->contains($user)) {
+            $this->users->add($user);
+            $user->addChantierid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUser(User $user): static
+    {
+        if ($this->users->removeElement($user)) {
+            $user->removeChantierid($this);
+        }
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, UserChantier>
+     */
+    public function getUserChantiers(): Collection
+    {
+        return $this->userChantiers;
+    }
+
+    public function addUserChantier(UserChantier $userChantier): static
+    {
+        if (!$this->userChantiers->contains($userChantier)) {
+            $this->userChantiers->add($userChantier);
+            $userChantier->setChantierid($this);
+        }
+
+        return $this;
+    }
+
+    public function removeUserChantier(UserChantier $userChantier): static
+    {
+        if ($this->userChantiers->removeElement($userChantier)) {
+            // set the owning side to null (unless already changed)
+            if ($userChantier->getChantierid() === $this) {
+                $userChantier->setChantierid(null);
+            }
+        }
 
         return $this;
     }
