@@ -10,7 +10,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 class HomeController extends AbstractController
 {
-    #[Route('/', name: 'app_home')]
+    #[Route('/home', name: 'app_home')]
     public function index(EntityManagerInterface $entityManager): Response
     {
         // Récupérer les 3 derniers chantiers depuis la base de données
