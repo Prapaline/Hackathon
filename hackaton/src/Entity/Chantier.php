@@ -36,13 +36,13 @@ class Chantier
     /**
      * @var Collection<int, User>
      */
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'chantierid')]
+    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'chantier')]
     private Collection $users;
 
     /**
      * @var Collection<int, UserChantier>
      */
-    #[ORM\OneToMany(targetEntity: UserChantier::class, mappedBy: 'chantierid')]
+    #[ORM\OneToMany(targetEntity: UserChantier::class, mappedBy: 'chantier')]
     private Collection $userChantiers;
 
     public function __construct()
@@ -167,7 +167,7 @@ class Chantier
     {
         if (!$this->userChantiers->contains($userChantier)) {
             $this->userChantiers->add($userChantier);
-            $userChantier->setChantierid($this);
+            $userChantier->setChantier($this);
         }
 
         return $this;
@@ -177,11 +177,12 @@ class Chantier
     {
         if ($this->userChantiers->removeElement($userChantier)) {
             // set the owning side to null (unless already changed)
-            if ($userChantier->getChantierid() === $this) {
-                $userChantier->setChantierid(null);
+            if ($userChantier->getChantier() === $this) {
+                $userChantier->setChantier(null);
             }
         }
 
         return $this;
     }
+    
 }

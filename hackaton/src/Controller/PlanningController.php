@@ -16,10 +16,16 @@ class PlanningController extends AbstractController
     public function index(UserChantierRepository $userChantierRepository): Response
 {
     $user = $this->getUser();
+    $chantiers = $user->getChantiers();
 
     // Récupère les missions de l'utilisateur connecté
-    $missions = $userChantierRepository->findBy(['userid' => $user]);
-
+    $missions = $userChantierRepository->createQueryBuilder('uc')
+    ->join('uc.chantier', 'c')  // Jointure pour récupérer les chantiers associés
+    ->addSelect('c')  // Sélection des chantiers
+    ->where('uc.user = :user')  // Condition sur l'utilisateur
+    ->setParameter('user', $user)
+    ->getQuery()
+    ->getResult();
     // Test : affiche le contenu de $missions pour voir ce qu'il contient
     dump($missions);
 

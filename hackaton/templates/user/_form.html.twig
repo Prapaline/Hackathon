@@ -1,4 +1,16 @@
 {{ form_start(form) }}
-    {{ form_widget(form) }}
-    <button class="btn">{{ button_label|default('Save') }}</button>
+
+    {{ form_row(form.email) }}
+    {{ form_row(form.first_name) }}
+    {{ form_row(form.last_name) }}
+    {{ form_row(form.phone) }}
+
+    <h3>Chantiers</h3>
+    <div id="user-chantiers">
+        {# Affiche les champs start_date et end_date pour chaque chantier #}
+        {{ form_widget(form.userChantiers) }}
+    </div>
+
+    <button class="btn btn-success">{{ button_label|default('Save') }}</button>
+
 {{ form_end(form) }}

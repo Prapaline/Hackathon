@@ -55,7 +55,7 @@ final class UserControllerTest extends WebTestCase
             'user[last_name]' => 'Testing',
             'user[phone]' => 'Testing',
             'user[skillid]' => 'Testing',
-            'user[chantierid]' => 'Testing',
+            'user[chantier]' => 'Testing',
         ]);
 
         self::assertResponseRedirects($this->path);
@@ -74,7 +74,7 @@ final class UserControllerTest extends WebTestCase
         $fixture->setLast_name('My Title');
         $fixture->setPhone('My Title');
         $fixture->setSkillid('My Title');
-        $fixture->setChantierid('My Title');
+        $fixture->setChantier('My Title');
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -98,7 +98,7 @@ final class UserControllerTest extends WebTestCase
         $fixture->setLast_name('Value');
         $fixture->setPhone('Value');
         $fixture->setSkillid('Value');
-        $fixture->setChantierid('Value');
+        $fixture->setChantier('Value');
 
         $this->manager->persist($fixture);
         $this->manager->flush();
@@ -113,7 +113,7 @@ final class UserControllerTest extends WebTestCase
             'user[last_name]' => 'Something New',
             'user[phone]' => 'Something New',
             'user[skillid]' => 'Something New',
-            'user[chantierid]' => 'Something New',
+            'user[chantier]' => 'Something New',
         ]);
 
         self::assertResponseRedirects('/user/');
@@ -127,7 +127,7 @@ final class UserControllerTest extends WebTestCase
         self::assertSame('Something New', $fixture[0]->getLast_name());
         self::assertSame('Something New', $fixture[0]->getPhone());
         self::assertSame('Something New', $fixture[0]->getSkillid());
-        self::assertSame('Something New', $fixture[0]->getChantierid());
+        self::assertSame('Something New', $fixture[0]->getChantier());
     }
 
     public function testRemove(): void
@@ -141,7 +141,7 @@ final class UserControllerTest extends WebTestCase
         $fixture->setLast_name('Value');
         $fixture->setPhone('Value');
         $fixture->setSkillid('Value');
-        $fixture->setChantierid('Value');
+        $fixture->setChantier('Value');
 
         $this->manager->persist($fixture);
         $this->manager->flush();

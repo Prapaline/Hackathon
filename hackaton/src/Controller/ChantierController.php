@@ -51,22 +51,23 @@ final class ChantierController extends AbstractController
     }
 
     #[Route('/{id}/edit', name: 'app_chantier_edit', methods: ['GET', 'POST'])]
-    public function edit(Request $request, Chantier $chantier, EntityManagerInterface $entityManager): Response
-    {
-        $form = $this->createForm(ChantierType::class, $chantier);
-        $form->handleRequest($request);
+public function edit(Request $request, Chantier $chantier, EntityManagerInterface $entityManager): Response
+{
+    $form = $this->createForm(ChantierType::class, $chantier);
+    $form->handleRequest($request);
 
-        if ($form->isSubmitted() && $form->isValid()) {
-            $entityManager->flush();
+    if ($form->isSubmitted() && $form->isValid()) {
+        // Mets à jour les informations de chantier
+        $entityManager->flush();
 
-            return $this->redirectToRoute('app_chantier_index', [], Response::HTTP_SEE_OTHER);
-        }
-
-        return $this->render('chantier/edit.html.twig', [
-            'chantier' => $chantier,
-            'form' => $form,
-        ]);
+        return $this->redirectToRoute('app_chantier_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    return $this->render('chantier/edit.html.twig', [
+        'chantier' => $chantier,
+        'form' => $form->createView(),
+    ]);
+}
 
     #[Route('/{id}', name: 'app_chantier_delete', methods: ['POST'])]
     public function delete(Request $request, Chantier $chantier, EntityManagerInterface $entityManager): Response

@@ -14,10 +14,10 @@ class UserChantier
     private ?int $id = null;
 
     #[ORM\ManyToOne(inversedBy: 'userChantiers')]
-    private ?User $userid = null;
+    private ?User $user = null;
 
-    #[ORM\ManyToOne(inversedBy: 'userChantiers')]
-    private ?Chantier $chantierid = null;
+    #[ORM\ManyToOne(targetEntity: Chantier::class, inversedBy: 'userChantiers')]
+    private ?Chantier $chantier = null;
 
     #[ORM\Column]
     private ?\DateTimeImmutable $start_date = null;
@@ -30,30 +30,29 @@ class UserChantier
         return $this->id;
     }
 
-    public function getUserid(): ?User
-    {
-        return $this->userid;
-    }
+    public function getUser(): ?User
+{
+    return $this->user;
+}
 
-    public function setUserid(?User $userid): static
-    {
-        $this->userid = $userid;
+public function setUser(?User $user): static
+{
+    $this->user = $user;
 
-        return $this;
-    }
+    return $this;
+}
 
-    public function getChantierid(): ?Chantier
-    {
-        return $this->chantierid;
-    }
+public function getChantier(): ?Chantier
+{
+    return $this->chantier;
+}
 
-    public function setChantierid(?Chantier $chantierid): static
-    {
-        $this->chantierid = $chantierid;
+public function setChantier(?Chantier $chantier): static
+{
+    $this->chantier = $chantier;
 
-        return $this;
-    }
-
+    return $this;
+}
     public function getStartDate(): ?\DateTimeImmutable
     {
         return $this->start_date;

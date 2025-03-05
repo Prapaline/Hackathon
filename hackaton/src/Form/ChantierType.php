@@ -26,8 +26,9 @@ class ChantierType extends AbstractType
             ])
             ->add('users', EntityType::class, [
                 'class' => User::class,
-                'choice_label' => 'id',
+                'choice_label' => 'email',
                 'multiple' => true,
+                'expanded' => true,
             ])
         ;
     }

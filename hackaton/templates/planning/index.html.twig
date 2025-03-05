@@ -9,8 +9,10 @@
     <div class="grid grid-cols-1 gap-4">
         {% for mission in missions %}
             <div class="p-4 border rounded-lg shadow-md bg-white">
-                <h3 class="text-lg font-semibold mb-2">{{ mission.chantierid.name }}</h3>
-                <p><strong>Adresse :</strong> {{ mission.chantierid.location }}</p>
+                <h3 class="text-lg font-semibold mb-2">{{ mission.chantier.name }}</h3>
+                <p><strong>Date de début :</strong> {{ mission.startDate|date('d/m/Y H:i') }}</p>
+                <p><strong>Date de fin :</strong> {{ mission.endDate|date('d/m/Y H:i') }}</p>
+                <p><strong>Adresse :</strong> {{ mission.chantier.location }}</p> {# Remplace .address par .location si c'est l'adresse #}
             </div>
         {% else %}
             <p>Aucune mission prévue pour aujourd'hui.</p>

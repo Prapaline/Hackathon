@@ -9,5 +9,13 @@
 
     <a href="{{ path('app_user_index') }}">back to list</a>
 
+   <ul>
+    {% for userChantier in user.userChantiers %}
+        <li>{{ userChantier.chantier.name }} (Début: {{ userChantier.start_date|date('d-m-Y') }}, Fin: {{ userChantier.end_date|date('d-m-Y') }})</li>
+    {% else %}
+        <li>No associated chantiers</li>
+    {% endfor %}
+</ul>
+
     {{ include('user/_delete_form.html.twig') }}
 {% endblock %}

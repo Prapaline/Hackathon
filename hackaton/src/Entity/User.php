@@ -50,7 +50,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, UserChantier>
      */
-    #[ORM\OneToMany(targetEntity: UserChantier::class, mappedBy: 'userid')]
+    #[ORM\OneToMany(targetEntity: UserChantier::class, mappedBy: 'user')]
     private Collection $userChantiers;
 
     
@@ -59,7 +59,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
     public function __construct()
     {
-        $this->chantierid = new ArrayCollection();
+        $this->chantier = new ArrayCollection();
         $this->userChantiers = new ArrayCollection();
     }
 
@@ -198,7 +198,7 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if (!$this->userChantiers->contains($userChantier)) {
             $this->userChantiers->add($userChantier);
-            $userChantier->setUserid($this);
+            $userChantier->setUser($this);
         }
 
         return $this;
@@ -208,12 +208,18 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         if ($this->userChantiers->removeElement($userChantier)) {
             // set the owning side to null (unless already changed)
-            if ($userChantier->getUserid() === $this) {
-                $userChantier->setUserid(null);
+            if ($userChantier->getUser() === $this) {
+                $userChantier->setUser(null);
             }
         }
 
         return $this;
     }
+    public function getChantiers(): array
+{
+    // Retourne un tableau simple de chantiers associés via UserChantier
+    return array_map(fn($userChantier) => $userChantier->getChantier(), $this->userChantiers->toArray());
+}
+
 
 }
