@@ -27,6 +27,12 @@
                         <span>Skills</span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ app.request.get('_route') == 'app_planning' ? 'active' }}" href="{{ path('app_planning') }}">
+                        <i class="fas fa-envelope"></i>
+                        <span>Planning</span>
+                    </a>
+                </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown">
                         <i class="fas fa-user-circle"></i>
