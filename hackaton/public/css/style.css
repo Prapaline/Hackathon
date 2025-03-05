@@ -1,17 +1,20 @@
+*{
+    font-family: Arial, Helvetica, sans-serif;
+}
 /* Centrer le formulaire au milieu de la page */
 .login-container {
     display: flex;
     justify-content: center;
     align-items: center;
     height: 100vh;
-    background-color: #f0f0f0;
+    background-color: #434255;
 }
 
 /* Formulaire */
 .login-form {
     width: 100%;
-    max-width: 400px;
-    padding: 20px;
+    max-width: 507px;
+    padding: 93px 70px;
     background-color: white;
     border-radius: 8px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
@@ -20,14 +23,19 @@
 /* Titre */
 .login-title {
     text-align: center;
-    font-size: 24px;
-    margin-bottom: 20px;
+    font-size: 27px;
+    margin-bottom: 40px;
     font-weight: bold;
 }
 
 /* Champs de formulaire */
 .form-group {
-    margin-bottom: 15px;
+    margin-bottom: 20px;
+}
+
+.form-label {
+    font-size: 14px;
+    color: #333;
 }
 
 .form-control {
@@ -36,6 +44,8 @@
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    font-size: 16px;
+    box-sizing: border-box;
 }
 
 /* Conteneur mot de passe */
@@ -43,20 +53,23 @@
     position: relative;
 }
 
+/* Icône de l'œil pour masquer/afficher le mot de passe */
 .eye-icon {
     position: absolute;
     right: 10px;
     top: 50%;
     transform: translateY(-50%);
     cursor: pointer;
+    font-size: 20px;
 }
 
 /* Bouton de soumission */
 button.btn {
     width: 100%;
-    padding: 10px;
-    background-color: #007bff;
+    padding: 15px;
+    background-color: #ed9108;
     border: none;
+    font-weight: 600;
     border-radius: 4px;
     color: white;
     cursor: pointer;
@@ -64,7 +77,7 @@ button.btn {
 }
 
 button.btn:hover {
-    background-color: #0056b3;
+    background-color: rgb(190, 118, 10);
 }
 
 /* Message d'erreur */
@@ -72,6 +85,15 @@ button.btn:hover {
     background-color: #f8d7da;
     color: #721c24;
     padding: 15px;
+
     margin-bottom: 15px;
     border-radius: 5px;
 }
+
+/* HOME PAGE DEBUT */
+
+.title-home {
+    background-color: #7f7da1;
+}
+/* HOME PAGE FIN */
+

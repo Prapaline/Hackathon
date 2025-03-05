@@ -1,35 +1,146 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Skill index{% endblock %}
+{% block title %}Compétence{% endblock %}
 
 {% block body %}
-    <h1>Skill index</h1>
+    
+    <div class="d-flex">
+        <div class="">
+            {% include 'includes/navbar.html.twig' %}
+        </div>
 
-    <table class="table">
-        <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>actions</th>
-            </tr>
-        </thead>
-        <tbody>
-        {% for skill in skills %}
-            <tr>
-                <td>{{ skill.id }}</td>
-                <td>{{ skill.name }}</td>
-                <td>
-                    <a href="{{ path('app_skill_show', {'id': skill.id}) }}">show</a>
-                    <a href="{{ path('app_skill_edit', {'id': skill.id}) }}">edit</a>
-                </td>
-            </tr>
-        {% else %}
-            <tr>
-                <td colspan="3">no records found</td>
-            </tr>
-        {% endfor %}
-        </tbody>
-    </table>
+    <div class="container mt-5">
+    <header class="text-center mb-5 mt-5">
+            <h1 class="chantier-name display-4 chantier-name">Compétence</h1>
+            <p class="lead text-muted">Nos compétences</p>
+    </header>
 
-    <a href="{{ path('app_skill_new') }}">Create new</a>
+        <div class="row">
+            {% for skill in skills %}
+                <div class="col-md-4 mb-4">
+                    <div class="card shadow-lg border-0 rounded-3">
+                        <div class="card-body">
+                            <h5 class="card-title">{{ skill.name }}</h5>
+                            <p class="card-text">
+                                <strong>ID:</strong> {{ skill.id }}
+                            </p>
+                            <div class="d-flex justify-content-between mt-3">
+                                <a href="{{ path('app_skill_show', {'id': skill.id}) }}" class="btn show btn-sm btn-outline-primary">
+                                    <i class="fas fa-eye"></i> Show
+                                </a>
+                                <a href="{{ path('app_skill_edit', {'id': skill.id}) }}" class="btn btn-sm btn-outline-secondary">
+                                    <i class="fas fa-edit"></i> Edit
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% else %}
+                <div class="col-12">
+                    <div class="alert alert-info" role="alert">
+                        No skills found.
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+        <div class=" mt-4">
+            <a href="{{ path('app_skill_new') }}" class=" view btn">
+                <i class="fas fa-plus"></i> Créer une nouvelle compétence
+            </a>
+        </div>
+    </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .card {
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease-in-out;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .card-text {
+            font-size: 1rem;
+            color: #6c757d;
+        }
+
+        .btn-outline-primary {
+            border-color: #007bff;
+            color: #007bff;
+        }
+
+        .btn-outline-primary:hover {
+            background-color: #007bff;
+            color: white;
+        }
+
+        .btn-outline-secondary {
+            border-color: #6c757d;
+            color: #6c757d;
+        }
+
+        .btn-outline-secondary:hover {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .container {
+            padding: 30px;
+        }
+
+        .d-flex {
+            display: flex;
+        }
+
+        .justify-content-between {
+            justify-content: space-between;
+        }
+
+        .text-center {
+            text-align: center;
+        }
+
+        .mt-5 {
+            margin-top: 3rem;
+        }
+
+        .mb-4 {
+            margin-bottom: 1.5rem;
+        }
+
+        .alert {
+            text-align: center;
+        }
+
+           .chantier-name {
+        color: #434255;
+        font-weight: bold;
+    }
+    .view {
+           background-color: #52516b;
+           color: white;
+           padding: 10px 20px;
+        }
+       .view:hover {
+            background-color: #434255;
+        color: white;   
+        }
+
+        .show {
+            background-color: #ed9108!important;
+            border: none;
+            padding: 5px 10px;
+        }
+    </style>
 {% endblock %}

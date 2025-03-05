@@ -1,77 +1,72 @@
 <nav class="vertical-navbar">
-    <!-- Section utilisateur -->
     <div class="user-info">
-        <img src="https://via.placeholder.com/40" alt="User Image" class="user-avatar">
-        <span class="user-name">John Doe</span>
+        <span class="user-name">Employé : <strong>{{ last_name }}</strong> {{ first_name }}</span>
     </div>
-
-    <!-- Navigation principale -->
     <ul class="navbar-nav">
         <li class="nav-item">
             <a class="nav-link {{ app.request.get('_route') == 'app_home' ? 'active' }}" href="{{ path('app_home') }}">
-                <i class="fas fa-home"></i>
-                <span>Accueil</span>
+                <i class="fas fa-home"></i> Accueil
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{ app.request.get('_route') == 'app_chantier_index' ? 'active' }}" href="{{ path('app_chantier_index') }}">
-                <i class="fas fa-concierge-bell"></i>
-                <span>Projects</span>
+                <i class="fas fa-hard-hat"></i> Chantiers
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{ app.request.get('_route') == 'app_user_index' ? 'active' }}" href="{{ path('app_user_index') }}">
-                <i class="fas fa-users"></i>
-                <span>Employés</span>
+                <i class="fas fa-users"></i> Employés
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{ app.request.get('_route') == 'app_skill_index' ? 'active' }}" href="{{ path('app_skill_index') }}">
-                <i class="fas fa-cogs"></i>
-                <span>Skills</span>
+                <i class="fas fa-cogs"></i> Skills
             </a>
         </li>
         <li class="nav-item">
             <a class="nav-link {{ app.request.get('_route') == 'app_planning' ? 'active' }}" href="{{ path('app_planning') }}">
-                <i class="fas fa-calendar-alt"></i>
-                <span>Planning</span>
+                <i class="fas fa-calendar-alt"></i> Planning
             </a>
         </li>
     </ul>
-
-    <!-- Déconnexion -->
     <div class="logout">
         <a href="{{ path('app_logout') }}" class="nav-link">
-            <i class="fas fa-sign-out-alt"></i>
+            <i class="fas fa-sign-out-alt"></i> Déconnexion
         </a>
     </div>
 </nav>
 
+
 <style>
-    /* Styles de la sidebar */
-    .vertical-navbar {
+.vertical-navbar {
+    top: 0;
+    left: 0;
+    height: 100vh; /* Prendre toute la hauteur de l'écran */
+    width: 250px; /* Largeur fixe de la sidebar */
+    background: #434255;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centrer verticalement */
+    padding: 2rem 0;
+    align-items: center;
+    padding: 2rem 0;
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    color: white;
+    padding-top: 1rem;
+}
+   
 
-        color: white;
-        display: flex;
-        flex-direction: column;
-        padding: 2rem 0;
-        align-items: center;
-        width: 250px; /* Largeur de la navbar */
-            height: 100vh; /* Hauteur totale de la vue */
-            position: fixed; /* Fixe la navbar à gauche */
-
-            background: #333; /* Couleur de fond sobre */
-            box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            padding-top: 1rem;
-    }
-
-    /* Section utilisateur */
+    .main-content {
+        margin-left: 250px; /* Laisser de la place à la sidebar fixe */
+        padding: 20px;
+        width: calc(100% - 250px); /* Prendre tout l'espace restant */
+        height: 100vh;
+        overflow-y: auto; /* Permettre le défilement du contenu principal */
+        z-index: 1; /* Assurer que le contenu est sous la navbar */
+    } 
     .user-info {
         text-align: center;
-        margin-bottom: 2rem;
+        margin: 1rem 0px 2rem 0px;
     }
 
     .user-avatar {
@@ -84,7 +79,6 @@
     .user-name {
         font-size: 1rem;
         color: white;
-        font-weight: bold;
     }
 
     /* Liens de navigation */
@@ -112,7 +106,7 @@
 
     .vertical-navbar .nav-link:hover,
     .vertical-navbar .nav-link.active {
-        background-color: #444; /* Fond plus clair au survol */
+        background-color: #ed9108; /* Fond plus clair au survol */
     }
 
     .vertical-navbar .nav-link i {
@@ -128,22 +122,22 @@
     .logout {
         margin-top: auto;
         width: 100%;
-        padding: 1rem 2rem;
+        padding: 1rem 1rem;
     }
 
     .logout .nav-link {
         display: flex;
         align-items: center;
         justify-content: center;
-        padding: 1rem;
+        padding: 12px 42px;
         color: white;
         font-size: 1.25rem;
-        background-color: #444;
-        border-radius: 0.5rem;
+        background-color:rgb(96, 95, 124);
+        border-radius: 5px;
         transition: background-color 0.3s ease;
     }
 
     .logout .nav-link:hover {
-        background-color: #555;
+        background-color:rgb(82, 81, 107);
     }
 </style>
