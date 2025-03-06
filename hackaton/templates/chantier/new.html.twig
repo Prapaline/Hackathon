@@ -1,11 +1,108 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}New Chantier{% endblock %}
+{% block title %}Nouveau Chantier{% endblock %}
 
 {% block body %}
-    <h1>Create new Chantier</h1>
 
-    {{ include('chantier/_form.html.twig') }}
 
-    <a href="{{ path('app_chantier_index') }}">back to list</a>
+    
+    <div class="d-flex">
+        <div class="">
+            {% include 'includes/navbar.html.twig' %}
+        </div>
+        
+<div class="container mt-5">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <h1 class="mb-4 text-center">Créer un nouveau Chantier</h1>
+
+            {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+
+            <!-- Champ Nom -->
+            <div class="mb-3">
+                {{ form_label(form.name, 'Nom du chantier', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.name, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.name) }}
+            </div>
+
+            <!-- Champ Localisation -->
+            <div class="mb-3">
+                {{ form_label(form.location, 'Localisation', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.location, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.location) }}
+            </div>
+
+            <!-- Champ Description -->
+            <div class="mb-3">
+                {{ form_label(form.description, 'Description', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.description, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.description) }}
+            </div>
+
+            <!-- Champ Statut -->
+            <div class="mb-3">
+                {{ form_label(form.status, 'Statut', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.status, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.status) }}
+            </div>
+
+            <!-- Champ Date de début -->
+            <div class="mb-3">
+                {{ form_label(form.start_date, 'Date de début', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.start_date, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.start_date) }}
+            </div>
+
+            <!-- Champ Date de fin -->
+            <div class="mb-3">
+                {{ form_label(form.end_date, 'Date de fin', {'label_attr': {'class': 'form-label'}}) }}
+                {{ form_widget(form.end_date, {'attr': {'class': 'form-control'}}) }}
+                {{ form_errors(form.end_date) }}
+            </div>
+
+            {# On affiche le reste (caché ou non voulu) uniquement si nécessaire #}
+            {{ form_rest(form) }}
+
+            <div class="text-center mt-4">
+                <button type="submit" class="btn btn-success px-5">Créer</button>
+            </div>
+
+            {{ form_end(form) }}
+
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+    body {
+        background-color: #f8f9fa;
+    }
+    h1 {
+        font-weight: bold;
+        color: #343a40;
+    }
+    .form-label {
+        font-weight: 500;
+        color: #495057;
+    }
+    .form-control {
+        border-radius: 6px;
+        transition: border-color 0.3s ease;
+    }
+    .form-control:focus {
+        border-color: #007bff;
+        box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+    .btn-success {
+        font-weight: 600;
+        padding: 10px 30px;
+    }
+    .btn-outline-secondary {
+        font-weight: 600;
+        padding: 10px 30px;
+        border-radius: 6px;
+    }
+</style>
 {% endblock %}
