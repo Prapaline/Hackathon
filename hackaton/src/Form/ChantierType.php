@@ -29,6 +29,7 @@ class ChantierType extends AbstractType
                 'choice_label' => 'email',
                 'multiple' => true,
                 'expanded' => true,
+                'mapped' => false,
             ])
         ;
     }

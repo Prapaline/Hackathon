@@ -50,16 +50,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     /**
      * @var Collection<int, UserChantier>
      */
-    #[ORM\OneToMany(targetEntity: UserChantier::class, mappedBy: 'user')]
-    private Collection $userChantiers;
-
-    
-
-
 
     public function __construct()
     {
-        $this->chantier = new ArrayCollection();
         $this->userChantiers = new ArrayCollection();
     }
 
@@ -185,41 +178,43 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
 
         return $this;
     }
-
-    /**
-     * @return Collection<int, UserChantier>
-     */
-    public function getUserChantiers(): Collection
-    {
-        return $this->userChantiers;
-    }
-
-    public function addUserChantier(UserChantier $userChantier): static
-    {
-        if (!$this->userChantiers->contains($userChantier)) {
-            $this->userChantiers->add($userChantier);
-            $userChantier->setUser($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserChantier(UserChantier $userChantier): static
-    {
-        if ($this->userChantiers->removeElement($userChantier)) {
-            // set the owning side to null (unless already changed)
-            if ($userChantier->getUser() === $this) {
-                $userChantier->setUser(null);
-            }
-        }
-
-        return $this;
-    }
     public function getChantiers(): array
 {
     // Retourne un tableau simple de chantiers associés via UserChantier
     return array_map(fn($userChantier) => $userChantier->getChantier(), $this->userChantiers->toArray());
 }
+
+
+    #[ORM\OneToMany(mappedBy: 'user', targetEntity: UserChantier::class)]
+    private Collection $userChantiers;
+
+
+public function getUserChantiers(): Collection
+{
+    return $this->userChantiers;
+}
+
+public function addUserChantier(UserChantier $userChantier): static
+{
+    if (!$this->userChantiers->contains($userChantier)) {
+        $this->userChantiers->add($userChantier);
+        $userChantier->setUser($this);
+    }
+
+    return $this;
+}
+
+public function removeUserChantier(UserChantier $userChantier): static
+{
+    if ($this->userChantiers->removeElement($userChantier)) {
+        if ($userChantier->getUser() === $this) {
+            $userChantier->setUser(null);
+        }
+    }
+
+    return $this;
+}
+
 
 
 }

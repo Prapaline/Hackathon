@@ -13,10 +13,12 @@ class UserChantier
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(inversedBy: 'userChantiers')]
+    #[ORM\ManyToOne(targetEntity: User::class, inversedBy: 'userChantiers')]
+    #[ORM\JoinColumn(name: 'userid_id', referencedColumnName: 'id')]
     private ?User $user = null;
 
     #[ORM\ManyToOne(targetEntity: Chantier::class, inversedBy: 'userChantiers')]
+    #[ORM\JoinColumn(name: 'chantierid_id', referencedColumnName: 'id')]
     private ?Chantier $chantier = null;
 
     #[ORM\Column]

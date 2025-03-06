@@ -33,21 +33,9 @@ class Chantier
     #[ORM\Column]
     private ?\DateTimeImmutable $end_date = null;
 
-    /**
-     * @var Collection<int, User>
-     */
-    #[ORM\ManyToMany(targetEntity: User::class, mappedBy: 'chantier')]
-    private Collection $users;
-
-    /**
-     * @var Collection<int, UserChantier>
-     */
-    #[ORM\OneToMany(targetEntity: UserChantier::class, mappedBy: 'chantier')]
-    private Collection $userChantiers;
 
     public function __construct()
     {
-        $this->users = new ArrayCollection();
         $this->userChantiers = new ArrayCollection();
     }
 
@@ -129,60 +117,42 @@ class Chantier
     }
 
     /**
-     * @return Collection<int, User>
-     */
-    public function getUsers(): Collection
-    {
-        return $this->users;
+ * @var Collection<int, UserChantier>
+ */
+#[ORM\OneToMany(targetEntity: UserChantier::class, mappedBy: 'chantier')]
+private Collection $userChantiers;
+
+public function getUserChantiers(): Collection
+{
+    return $this->userChantiers;
+}
+
+public function addUserChantier(UserChantier $userChantier): static
+{
+    if (!$this->userChantiers->contains($userChantier)) {
+        $this->userChantiers->add($userChantier);
+        $userChantier->setChantier($this);
     }
 
-    public function addUser(User $user): static
-    {
-        if (!$this->users->contains($user)) {
-            $this->users->add($user);
-            $user->addChantierid($this);
+    return $this;
+}
+
+public function removeUserChantier(UserChantier $userChantier): static
+{
+    if ($this->userChantiers->removeElement($userChantier)) {
+        if ($userChantier->getChantier() === $this) {
+            $userChantier->setChantier(null);
         }
-
-        return $this;
     }
 
-    public function removeUser(User $user): static
+    return $this;
+}
+
+    public function getUsers(): array
     {
-        if ($this->users->removeElement($user)) {
-            $user->removeChantierid($this);
-        }
-
-        return $this;
+        // Retourne un tableau d'utilisateurs associés à ce chantier via UserChantier
+        return array_map(fn($userChantier) => $userChantier->getUser(), $this->userChantiers->toArray());
     }
 
-    /**
-     * @return Collection<int, UserChantier>
-     */
-    public function getUserChantiers(): Collection
-    {
-        return $this->userChantiers;
-    }
 
-    public function addUserChantier(UserChantier $userChantier): static
-    {
-        if (!$this->userChantiers->contains($userChantier)) {
-            $this->userChantiers->add($userChantier);
-            $userChantier->setChantier($this);
-        }
-
-        return $this;
-    }
-
-    public function removeUserChantier(UserChantier $userChantier): static
-    {
-        if ($this->userChantiers->removeElement($userChantier)) {
-            // set the owning side to null (unless already changed)
-            if ($userChantier->getChantier() === $this) {
-                $userChantier->setChantier(null);
-            }
-        }
-
-        return $this;
-    }
-    
 }
