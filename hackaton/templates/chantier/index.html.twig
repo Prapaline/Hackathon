@@ -1,32 +1,157 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Chantier index{% endblock %}
+{% block title %}Chantiers{% endblock %}
 
-{% block body %}
-    <h1>Chantiers</h1>
+{% block page_content %}
+    <header class="text-center mb-5 mt-5">
+        <h1 class="display-4 chantier-name">Liste des Chantiers</h1>
+        <p class="lead text-muted">Explorez nos projets récents et découvrez les détails de chaque chantier.</p>
+    </header>
 
-    <div class="row">
+    <div class="row p-5">
         {% for chantier in chantiers %}
-            <div class="col-md-4">
-                <div class="card mb-4 shadow-sm">
-                    <div class="card-body">
+            <div class="col-md-4 mb-4">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-body d-flex flex-column">
                         <h5 class="card-title">{{ chantier.name }}</h5>
                         <h6 class="card-subtitle mb-2 text-muted">{{ chantier.location }}</h6>
-                        <p class="card-text">{{ chantier.description }}</p>
-                        <p class="card-text"><strong>Status:</strong> {{ chantier.status }}</p>
-                        <p class="card-text"><strong>Start Date:</strong> {{ chantier.startDate ? chantier.startDate|date('Y-m-d') : 'N/A' }}</p>
-                        <p class="card-text"><strong>End Date:</strong> {{ chantier.endDate ? chantier.endDate|date('Y-m-d') : 'N/A' }}</p>
+                        <p class="card-text">{{ chantier.description|length > 100 ? chantier.description|slice(0, 100) ~ '...' : chantier.description }}</p>
+
+                        <!-- Dates sur la même ligne -->
                         <div class="d-flex justify-content-between">
-                            <a href="{{ path('app_chantier_show', {'id': chantier.id}) }}" class="btn btn-info btn-sm">View</a>
-                            <a href="{{ path('app_chantier_edit', {'id': chantier.id}) }}" class="btn btn-warning btn-sm">Edit</a>
+                            <p><strong>Date de début:</strong> {{ chantier.startDate ? chantier.startDate|date('Y-m-d') : 'N/A' }}</p>
+                            <p><strong>Date de fin:</strong> {{ chantier.endDate ? chantier.endDate|date('Y-m-d') : 'N/A' }}</p>
+                        </div>
+
+                        <!-- Durée en dessous -->
+                        {% set startDate = chantier.startDate %}
+                        {% set endDate = chantier.endDate %}
+                        {% if startDate and endDate %}
+                            {% set diff = startDate|date('U') - endDate|date('U') %}
+                            <p class="text-info"><strong>Durée :</strong> {{ diff / 86400 }} jours</p> 
+                        {% endif %}
+
+                        <div class="d-flex justify-content-between mt-auto">
+                            <div>
+                                <p class="badge bg-success">{{ chantier.status }}</p>
+                            </div>
+                            <div>
+                                <a href="{{ path('app_chantier_show', {'id': chantier.id}) }}" class="view btn  btn-sm">View</a>
+                                <a href="{{ path('app_chantier_edit', {'id': chantier.id}) }}" class="btn btn-warning btn-sm">Edit</a>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         {% else %}
-            <p>No records found</p>
+            <p class="text-center col-12">Aucun chantier trouvé.</p>
         {% endfor %}
     </div>
 
-    <a href="{{ path('app_chantier_new') }}" class="btn btn-primary mt-4">Create New</a>
+    <div class="text-center mt-4">
+        <a href="{{ path('app_chantier_new') }}" class="btn create-btn btn-lg">Créer un nouveau chantier</a>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    <style>
+        .card {
+            position: relative;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .card-img-top {
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .card-body {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .badge {
+            font-size: 0.85rem;
+        }
+
+        .btn {
+            font-size: 0.85rem;
+            padding: 0.5rem 1rem;
+        }
+
+        .d-flex {
+            display: flex;
+        }
+
+        .justify-content-between {
+            justify-content: space-between;
+        }
+
+        .text-info {
+            font-weight: bold;
+            font-size: 1rem;
+            color: #17a2b8;
+        }
+
+        .mt-3 {
+            margin-top: 1rem;
+        }
+
+        .mt-auto {
+            margin-top: auto;
+        }
+
+        .p-5 {
+            padding: 3rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: bold;
+        }
+
+        .card-subtitle {
+            font-size: 1rem;
+        }
+
+        .card-text {
+            font-size: 0.95rem;
+            color: #6c757d;
+        }
+
+        .card-footer {
+            text-align: center;
+        }
+
+        .btn-lg {
+            padding: 0.75rem 1.5rem;
+        }
+
+        .text-right {
+            text-align: right;
+        }
+
+        .view {
+           background-color: #52516b;
+           color: white;
+        }
+
+        .chantier-name {
+            color: #434255;
+            font-weight: bold;
+        }
+
+        .create-btn {
+            background-color: #52516b;
+            color: white;
+            font-size: 1.25rem;
+        }
+
+        .create-btn:hover , .view:hover {
+             background-color: #434255;
+            color: white;   
+        }
+    </style>
 {% endblock %}
