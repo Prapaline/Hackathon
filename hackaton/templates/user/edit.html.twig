@@ -31,7 +31,11 @@
         <h5 class="mt-4">Chantiers associés</h5>
         <ul>
             {% for userChantier in user.userChantiers %}
-                <li>{{ userChantier.chantier.name }} (Début: {{ userChantier.start_date|date('d-m-Y') }}, Fin: {{ userChantier.end_date|date('d-m-Y') }})</li>
+                <li>
+                    {{ userChantier.chantier.name }} 
+                    (Début: {{ userChantier.startDate|date('d-m-Y') }}, 
+                    Fin: {{ userChantier.endDate|date('d-m-Y') }})
+                </li>
             {% else %}
                 <li>Aucun chantier associé</li>
             {% endfor %}

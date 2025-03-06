@@ -32,11 +32,11 @@ class UserChantierType extends AbstractType
                 'label' => 'Date de fin',
                 'required' => true,
             ])
-            ->add('user', EntityType::class, [
-                'class' => User::class,
-                'choice_label' => 'email',  // Ou 'firstName' si tu veux afficher le prénom
-                'label' => 'Sélectionner un utilisateur',
-            ])
+            // ->add('user', EntityType::class, [
+            //     'class' => User::class,
+            //     'choice_label' => 'email',  // Ou 'firstName' si tu veux afficher le prénom
+            //     'label' => 'Sélectionner un utilisateur',
+            // ])
             ;
     }
 
