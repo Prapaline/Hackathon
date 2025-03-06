@@ -4,6 +4,8 @@ namespace App\Form;
 
 use App\Entity\UserChantier;
 use App\Entity\Chantier;
+use App\Entity\User;
+
 use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -29,7 +31,13 @@ class UserChantierType extends AbstractType
                 'widget' => 'single_text',
                 'label' => 'Date de fin',
                 'required' => true,
-            ]);
+            ])
+            ->add('user', EntityType::class, [
+                'class' => User::class,
+                'choice_label' => 'email',  // Ou 'firstName' si tu veux afficher le prénom
+                'label' => 'Sélectionner un utilisateur',
+            ])
+            ;
     }
 
     public function configureOptions(OptionsResolver $resolver): void

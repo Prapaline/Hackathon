@@ -34,10 +34,15 @@ final class UserController extends AbstractController
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
-            /** @var string $plainPassword */
+            // Récupérer le mot de passe en clair depuis le formulaire
             $plainPassword = $form->get('plainPassword')->getData();
             $user->setPassword($userPasswordHasher->hashPassword($user, $plainPassword));
-            $user->setRoles(['ROLE_USER']);
+            
+            // Récupérer les rôles sélectionnés dans le formulaire
+            $roles = $form->get('roles')->getData();
+            $user->setRoles($roles); // Affecter les rôles à l'utilisateur
+            
+            // Persister l'utilisateur dans la base de données
             $entityManager->persist($user);
             $entityManager->flush();
 

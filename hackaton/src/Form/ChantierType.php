@@ -31,6 +31,18 @@ class ChantierType extends AbstractType
                 'expanded' => true,
                 'mapped' => false,
             ])
+            ->add('start_date', null, [
+                'widget' => 'single_text',
+                'attr' => [
+                    'type' => 'datetime-local',
+                ],
+            ])
+            ->add('end_date', null, [
+                'widget' => 'single_text',
+                'attr' => [
+                    'type' => 'datetime-local',
+                ],
+            ])
         ;
     }
 

@@ -1,0 +1,6 @@
+{{ form_start(form) }}
+    {{ form_row(form.user) }}
+    {{ form_row(form.start_date, {'attr': {'type': 'datetime-local'}}) }}
+    {{ form_row(form.end_date, {'attr': {'type': 'datetime-local'}}) }}
+    <button type="submit" class="btn btn-primary">Enregistrer</button>
+{{ form_end(form) }}
