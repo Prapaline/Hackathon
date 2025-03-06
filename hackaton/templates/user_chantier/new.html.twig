@@ -2,5 +2,12 @@
     {{ form_row(form.user) }}
     {{ form_row(form.start_date, {'attr': {'type': 'datetime-local'}}) }}
     {{ form_row(form.end_date, {'attr': {'type': 'datetime-local'}}) }}
-    <button type="submit" class="btn btn-primary">Enregistrer</button>
+    <button type="submit" class="btn btn-primary">Enregistrer</button
+    {% if app.flashes('error') %}
+    <div class="alert alert-danger">
+        {% for message in app.flashes('error') %}
+            <p>{{ message }}</p>
+        {% endfor %}
+    </div>
+{% endif %}
 {{ form_end(form) }}
