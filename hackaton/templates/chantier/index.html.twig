@@ -31,13 +31,23 @@
                             <p class="text-info"><strong>Durée :</strong> {{ diff / 86400 }} jours</p> 
                         {% endif %}
                         {% for userChantier in chantier.userChantiers %}
-                            {% set user = userChantier.user %}
-                            <tr>
-                                <td>{{ user.firstName }} {{ user.lastName }}</td>
-                                <td>{{ user.skillid ? user.skillid.name : 'Aucune compétence' }}</td>
-                                <td>{{ userChantier.startDate|date('d/m/Y') }} - {{ userChantier.endDate|date('d/m/Y') }}</td>
-                            </tr>
-                        {% endfor %}
+                        {% set user = userChantier.user %}
+                        <div class="mb-2 p-2 border rounded bg-light mb-3">
+                            <p><strong>Employé :</strong> {{ user.firstName }} {{ user.lastName }}</p>
+
+                            {% if user.skills is defined and user.skills|length > 0 %}
+                                <p><strong>Compétences :</strong>
+                                    {% for skill in user.skills %}
+                                        {{ skill.name }}{% if not loop.last %}, {% endif %}
+                                    {% endfor %}
+                                </p>
+                            {% else %}
+                                <p><strong>Compétences :</strong> Aucune compétence renseignée</p>
+                            {% endif %}
+
+                            <p><strong>Période :</strong> {{ userChantier.startDate|date('d/m/Y') }} - {{ userChantier.endDate|date('d/m/Y') }}</p>
+                        </div>
+                    {% endfor %}
 
                         <div class="d-flex justify-content-between mt-auto">
                             <div>
