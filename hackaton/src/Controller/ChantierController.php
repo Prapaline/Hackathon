@@ -68,15 +68,25 @@ public function edit(Request $request, Chantier $chantier, EntityManagerInterfac
         'form' => $form->createView(),
     ]);
 }
+#[Route('/{id}', name: 'app_chantier_delete', methods: ['POST'])]
+public function delete(Request $request, Chantier $chantier, EntityManagerInterface $entityManager): Response
+{
+    // Vérifie si le token CSRF est valide
+    if ($this->isCsrfTokenValid('delete'.$chantier->getId(), $request->get('_token'))) {
+        
+        $userChantiers = $chantier->getUserChantiers(); // Assure-toi que cette méthode est bien définie dans ton entité Chantier
 
-    #[Route('/{id}', name: 'app_chantier_delete', methods: ['POST'])]
-    public function delete(Request $request, Chantier $chantier, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$chantier->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($chantier);
-            $entityManager->flush();
+        
+        foreach ($userChantiers as $userChantier) {
+            $entityManager->remove($userChantier);
         }
 
-        return $this->redirectToRoute('app_chantier_index', [], Response::HTTP_SEE_OTHER);
+        // Supprime le chantier
+        $entityManager->remove($chantier);
+        $entityManager->flush();
     }
+
+    return $this->redirectToRoute('app_chantier_index', [], Response::HTTP_SEE_OTHER);
+}
+
 }
