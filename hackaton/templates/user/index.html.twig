@@ -24,7 +24,7 @@
                                 <a href="{{ path('app_user_show', {'id': user.id}) }}" class="btn show btn-sm text-white">
                                     <i class="fas fa-eye"></i> Voir
                                 </a>
-                                <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn editt btn-outline-secondary">
+                                <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn edit btn-sm btn-outline-secondary">
                                     <i class="fas fa-edit"></i> Edit
                                 </a>
                             </div>
@@ -69,6 +69,9 @@
         .show {
             background-color: #ed9108!important;
             border: none;
+            padding: 5px 10px;
+        }
+                .edit {
             padding: 5px 10px;
         }
 </style>

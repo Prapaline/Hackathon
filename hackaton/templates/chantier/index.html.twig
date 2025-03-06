@@ -30,15 +30,23 @@
                             {% set diff = startDate|date('U') - endDate|date('U') %}
                             <p class="text-info"><strong>Durée :</strong> {{ diff / 86400 }} jours</p> 
                         {% endif %}
+                        {% for userChantier in chantier.userChantiers %}
+                            {% set user = userChantier.user %}
+                            <tr>
+                                <td>{{ user.firstName }} {{ user.lastName }}</td>
+                                <td>{{ user.skillid ? user.skillid.name : 'Aucune compétence' }}</td>
+                                <td>{{ userChantier.startDate|date('d/m/Y') }} - {{ userChantier.endDate|date('d/m/Y') }}</td>
+                            </tr>
+                        {% endfor %}
 
                         <div class="d-flex justify-content-between mt-auto">
                             <div>
                                 <p class="badge bg-success">{{ chantier.status }}</p>
                             </div>
                             <div>
-                                <a href="{{ path('app_chantier_show', {'id': chantier.id}) }}" class="view btn  btn-sm">View</a>
-                                <a href="{{ path('app_chantier_edit', {'id': chantier.id}) }}" class="btn btn-warning btn-sm">Edit</a>
-                            </div>
+                                <a href="{{ path('app_chantier_show', {'id': chantier.id}) }}" class=" show btn show btn-sm text-white"><i class="fas fa-eye"></i> Voir</a>
+                                <a href="{{ path('app_chantier_edit', {'id': chantier.id}) }}" class=" edit btn btn-sm btn-outline-secondary"> <i class="fas fa-edit"></i> Edit</a>
+                           </div>
                         </div>
                     </div>
                 </div>
@@ -133,10 +141,7 @@
             text-align: right;
         }
 
-        .view {
-           background-color: #52516b;
-           color: white;
-        }
+
 
         .chantier-name {
             color: #434255;
@@ -153,5 +158,16 @@
              background-color: #434255;
             color: white;   
         }
+        .show {
+            background-color: #ed9108!important;
+            border: none;
+            padding: 5px 10px;
+        }
+
+        .edit {
+            padding: 5px 10px;
+        }
+
+
     </style>
 {% endblock %}
