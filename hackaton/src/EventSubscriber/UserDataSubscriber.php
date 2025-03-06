@@ -7,27 +7,34 @@ use Symfony\Component\HttpKernel\Event\ControllerEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Twig\Environment;
+use Symfony\Bundle\SecurityBundle\Security;
+
 
 class UserDataSubscriber implements EventSubscriberInterface
 {
     private RequestStack $requestStack;
     private Environment $twig;
+    private Security $security;
 
-    public function __construct(RequestStack $requestStack, Environment $twig)
+
+    public function __construct(RequestStack $requestStack, Environment $twig, Security $security)
     {
         $this->requestStack = $requestStack;
         $this->twig = $twig;
+        $this->security = $security;
+
     }
 
     public function onKernelController(ControllerEvent $event): void
-    {
-        // Simule un utilisateur (à adapter selon comment tu récupères l'utilisateur)
-        $user = ['last_name' => 'Dupont', 'first_name' => 'Jean'];
+{
+   
+    $user = $this->security->getUser();
 
-        // Passe les variables globales à Twig
-        $this->twig->addGlobal('last_name', $user['last_name']);
-        $this->twig->addGlobal('first_name', $user['first_name']);
+    if ($user) { 
+        $this->twig->addGlobal('last_name', $user->getLastName());
+        $this->twig->addGlobal('first_name', $user->getFirstName());
     }
+}
 
     public static function getSubscribedEvents(): array
     {
