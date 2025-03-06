@@ -4,15 +4,23 @@ Ce projet vise à développer une application de gestion des affectations des em
 
 Technologies utilisées
 Frontend : ..
-Backend : ..
+Backend : Symfony
+
 Base de données : MySQL
+
 Tests unitaires : ..
-Installation
+
+Installation :
+Cloner le repository
+créer le .env et le configurer
+composer update
+
 Maquete du Site
--- ..
+https://www.figma.com/design/Gi8OPUFM14eVkOqubr1ZUw/Untitled?node-id=2-2869&t=8jhQzQKaLiKdLCd4-0
 
 Prérequis
-..
-..
+PHP 8
+Composer
+
 Cloner le repository
 git clone https://github.com/Prapaline/Hackathon
