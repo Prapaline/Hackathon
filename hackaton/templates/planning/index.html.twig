@@ -3,8 +3,20 @@
 {% block title %}Planning{% endblock %}
 
 {% block body %}
+
+
+    
+    <div class="d-flex">
+        <div class="">
+            {% include 'includes/navbar.html.twig' %}
+        </div>
+
+    <div class="container mt-5">
+    <header class="text-center mb-5 mt-5">
+            <h1 class="chantier-name display-4 chantier-name planning">Planning journalier</h1>
+    </header>
+    
 <div class="container mx-auto mt-5">
-    <h2 class="text-2xl mb-4">Planning journalier</h2>
 
     <div class="grid grid-cols-1 gap-4">
         {% for mission in missions %}
@@ -15,8 +27,24 @@
                 <p><strong>Adresse :</strong> {{ mission.chantier.location }}</p> {# Remplace .address par .location si c'est l'adresse #}
             </div>
         {% else %}
-            <p>Aucune mission prévue pour aujourd'hui.</p>
+            <p class="lead text-muted text-center text-planning">Aucune mission prévue pour aujourd'hui.</p>
         {% endfor %}
     </div>
 </div>
 {% endblock %}
+
+
+{% block stylesheets %}
+<style>
+
+   .planning {
+        color: #434255;
+        font-weight: bold;
+    }
+     .text-planning {
+        color: #434255;
+        font-weight: 500;
+    }
+    </style>
+{% endblock %}
+
