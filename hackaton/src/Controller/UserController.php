@@ -81,13 +81,31 @@ public function edit(Request $request, User $user, EntityManagerInterface $entit
 }
 
     #[Route('/{id}', name: 'app_user_delete', methods: ['POST'])]
-    public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
-    {
-        if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->getPayload()->getString('_token'))) {
-            $entityManager->remove($user);
-            $entityManager->flush();
+public function delete(Request $request, User $user, EntityManagerInterface $entityManager): Response
+{
+    // Vérifie si l'utilisateur est assigné à un chantier
+    $userChantiers = $entityManager->getRepository(UserChantier::class)
+        ->findBy(['user' => $user]);
+    
+    if (count($userChantiers) > 0) {
+        // Si l'utilisateur est assigné à un ou plusieurs chantiers, dissocie-le
+        foreach ($userChantiers as $userChantier) {
+            // Dissocier l'utilisateur du chantier
+            $userChantier->setUser(null);
+            // Si tu veux supprimer la relation complètement, tu peux décommenter la ligne suivante:
+            // $entityManager->remove($userChantier);
+            $entityManager->persist($userChantier);
         }
-
-        return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
     }
+
+    // Vérifie si le token CSRF est valide
+    if ($this->isCsrfTokenValid('delete'.$user->getId(), $request->get('_token'))) {
+        // Supprime l'utilisateur
+        $entityManager->remove($user);
+        $entityManager->flush();
+    }
+
+    return $this->redirectToRoute('app_user_index', [], Response::HTTP_SEE_OTHER);
+}
+
 }
