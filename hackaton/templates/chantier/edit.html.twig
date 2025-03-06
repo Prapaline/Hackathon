@@ -3,12 +3,69 @@
 {% block title %}Edit Chantier{% endblock %}
 
 {% block body %}
-    <h1>Editer Chantier</h1>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <button class="btn">{{ button_label|default('Save') }}</button>
-    {{ form_end(form) }}
+   
+    <div class="d-flex">
+        <div class="">
+            {% include 'includes/navbar.html.twig' %}
+        </div>
+<div class="container mt-5">
+  <div class="row justify-content-center">
+    <div class="col-lg-8">
+      <h1 class="text-center mb-4">Editer Chantier</h1>
+      <div class="card shadow-sm border-0 rounded-4">
+        <div class="card-body">
+          {{ form_start(form, {'attr': {'class': 'needs-validation'}}) }}
+            {{ form_widget(form) }}
+            <div class="text-center mt-3">
+              <button type="submit" class="btn btn-success">
+                {{ button_label|default('Save') }}
+              </button>
+            </div>
+          {{ form_end(form) }}
+        </div>
+      </div>
+      <div class="text-center mt-4">
+        <a href="{{ path('app_user_chantier_index') }}" class="btn btn-primary editt">
+          Ajouter un chantier pour l'utilisateur
+        </a>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}
 
+{% block stylesheets %}
+<style>
+.editt{
+ background-color: #be760a;
+ padding: 10px 30px;
+ border: 1px solid #be760a;
+}
 
+.editt:hover{
+ background-color:rgb(170, 105, 8);
+ padding: 10px 30px;
+  border: 1px solid #be760a;
+}
+
+  body {
+    background-color: #f8f9fa;
+  }
+  h1 {
+    font-weight: bold;
+    color: #343a40;
+  }
+  .card {
+    border-radius: 15px;
+  }
+  .btn-success {
+    font-weight: 600;
+    padding: 10px 30px;
+  }
+  .btn-primary {
+    font-weight: 600;
+    padding: 10px 30px;
+  }
+</style>
 {% endblock %}

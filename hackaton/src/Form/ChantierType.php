@@ -24,13 +24,13 @@ class ChantierType extends AbstractType
             ->add('end_date', null, [
                 'widget' => 'single_text',
             ])
-            ->add('users', EntityType::class, [
+        /*     ->add('users', EntityType::class, [
                 'class' => User::class,
                 'choice_label' => 'email',
                 'multiple' => true,
                 'expanded' => true,
                 'mapped' => false,
-            ])
+            ]) */
             ->add('start_date', null, [
                 'widget' => 'single_text',
                 'attr' => [
