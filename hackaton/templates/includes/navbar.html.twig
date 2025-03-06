@@ -8,6 +8,8 @@
                 <i class="fas fa-home"></i> Accueil
             </a>
         </li>
+        {% if is_granted('ROLE_ADMIN') %}
+
         <li class="nav-item">
             <a class="nav-link {{ app.request.get('_route') == 'app_chantier_index' ? 'active' }}" href="{{ path('app_chantier_index') }}">
                 <i class="fas fa-hard-hat"></i> Chantiers
@@ -23,6 +25,8 @@
                 <i class="fas fa-cogs"></i> Skills
             </a>
         </li>
+    {% endif %}
+
         <li class="nav-item">
             <a class="nav-link {{ app.request.get('_route') == 'app_planning' ? 'active' }}" href="{{ path('app_planning') }}">
                 <i class="fas fa-calendar-alt"></i> Planning
