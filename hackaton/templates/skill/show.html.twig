@@ -1,26 +1,78 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Skill{% endblock %}
+{% block title %}Compétence{% endblock %}
 
-{% block body %}
-    <h1>Skill</h1>
+{% block page_content %}
+    <div class="container mt-5">
+        <header class="text-center mb-5 mt-5">
+            <h1 class="display-4 chantier-name">Détails de la Compétence</h1>
+            <p class="lead text-muted">Vous pouvez consulter et modifier les informations de la compétence</p>
+        </header>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ skill.id }}</td>
-            </tr>
-            <tr>
-                <th>Name</th>
-                <td>{{ skill.name }}</td>
-            </tr>
-        </tbody>
-    </table>
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Informations de la Compétence</h5>
+                        
+                        <table class="table">
+                            <tbody>
+                                <tr>
+                                    <th>ID</th>
+                                    <td>{{ skill.id }}</td>
+                                </tr>
+                                <tr>
+                                    <th>Nom</th>
+                                    <td>{{ skill.name }}</td>
+                                </tr>
+                            </tbody>
+                        </table>
 
-    <a href="{{ path('app_skill_index') }}">back to list</a>
+                        <div class="mt-4">
+                            <a href="{{ path('app_skill_index') }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Retour à la liste
+                            </a>
+                            <a href="{{ path('app_skill_edit', {'id': skill.id}) }}" class="btn btn-outline-secondary ms-2">
+                                <i class="fas fa-edit"></i> Modifier
+                            </a>
+                        </div>
 
-    <a href="{{ path('app_skill_edit', {'id': skill.id}) }}">edit</a>
+                        <!-- Formulaire de suppression -->
+                        <div class="mt-4">
+                            {{ include('skill/_delete_form.html.twig') }}
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
 
-    {{ include('skill/_delete_form.html.twig') }}
+{% block stylesheets %}
+<style>
+   .chantier-name {
+        color: #434255;
+        font-weight: bold;
+    }
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        padding: 10px 20px;
+    }
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        color: white;
+    }
+    .btn-outline-secondary {
+        border-color: #6c757d;
+        color: #6c757d;
+    }
+    .btn-outline-secondary:hover {
+        background-color: #6c757d;
+        color: white;
+    }
+    .card-title {
+        font-size: 1.5rem;
+    }
+</style>
 {% endblock %}

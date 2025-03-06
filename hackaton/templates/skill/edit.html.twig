@@ -1,13 +1,57 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit Skill{% endblock %}
+{% block title %}Modifier la Compétence{% endblock %}
 
-{% block body %}
-    <h1>Edit Skill</h1>
+{% block page_content %}
+    <div class="container mt-5">
+        <header class="text-center mb-5 mt-5">
+            <h1 class="display-4 chantier-name">Modifier la Compétence</h1>
+            <p class="lead text-muted">Mettez à jour les informations de la compétence</p>
+        </header>
 
-    {{ include('skill/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Informations de la Compétence</h5>
+                        
+                        <!-- Formulaire de modification de la compétence -->
+                        {{ include('skill/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-    <a href="{{ path('app_skill_index') }}">back to list</a>
+                        <div class="mt-4">
+                            <a href="{{ path('app_skill_index') }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Retour à la liste
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    {{ include('skill/_delete_form.html.twig') }}
+        <!-- Formulaire de suppression -->
+        <div class="mt-4">
+            {{ include('skill/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+   .chantier-name {
+        color: #434255;
+        font-weight: bold;
+    }
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        padding: 10px 20px;
+    }
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        color: white;
+    }
+    .card-title {
+        font-size: 1.5rem;
+    }
+</style>
 {% endblock %}

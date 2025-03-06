@@ -1,21 +1,66 @@
 {% extends 'base.html.twig' %}
 
-{% block title %}Edit User{% endblock %}
+{% block title %}Modifier l'utilisateur{% endblock %}
 
-{% block body %}
-    <h1>Edit User</h1>
+{% block page_content %}
+    <div class="container mt-5">
+        <header class="text-center mb-5 mt-5">
+            <h1 class="display-4 chantier-name">Modifier l'Employé</h1>
+            <p class="lead text-muted">Mettez à jour les informations de l'employé</p>
+        </header>
 
-    {{ include('user/_form.html.twig', {'button_label': 'Update'}) }}
+        <div class="row">
+            <div class="col-md-12">
+                <div class="card shadow-lg border-0 rounded-3">
+                    <div class="card-body">
+                        <h5 class="card-title">Informations de l'Employé</h5>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+                        <!-- Formulaire de modification d'utilisateur -->
+                        {{ include('user/_form.html.twig', {'button_label': 'Mettre à jour'}) }}
 
-   <ul>
-    {% for userChantier in user.userChantiers %}
-        <li>{{ userChantier.chantier.name }} (Début: {{ userChantier.start_date|date('d-m-Y') }}, Fin: {{ userChantier.end_date|date('d-m-Y') }})</li>
-    {% else %}
-        <li>No associated chantiers</li>
-    {% endfor %}
-</ul>
+                        <div class="mt-4">
+                            <a href="{{ path('app_user_index') }}" class="btn btn-secondary">
+                                <i class="fas fa-arrow-left"></i> Retour à la liste
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
 
-    {{ include('user/_delete_form.html.twig') }}
+        <h5 class="mt-4">Chantiers associés</h5>
+        <ul>
+            {% for userChantier in user.userChantiers %}
+                <li>{{ userChantier.chantier.name }} (Début: {{ userChantier.start_date|date('d-m-Y') }}, Fin: {{ userChantier.end_date|date('d-m-Y') }})</li>
+            {% else %}
+                <li>Aucun chantier associé</li>
+            {% endfor %}
+        </ul>
+
+        <!-- Formulaire de suppression -->
+        <div class="mt-4">
+            {{ include('user/_delete_form.html.twig') }}
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+<style>
+   .chantier-name {
+        color: #434255;
+        font-weight: bold;
+    }
+    .btn-secondary {
+        background-color: #6c757d;
+        color: white;
+        padding: 10px 20px;
+    }
+    .btn-secondary:hover {
+        background-color: #5a6268;
+        color: white;
+    }
+    .card-title {
+        font-size: 1.5rem;
+    }
+</style>
 {% endblock %}

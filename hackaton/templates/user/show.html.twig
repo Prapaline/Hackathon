@@ -3,44 +3,49 @@
 {% block title %}User{% endblock %}
 
 {% block body %}
-    <h1>User</h1>
+    <div class="d-flex">
+        <div class="">
+            {% include 'includes/navbar.html.twig' %}
+        </div>
 
-    <table class="table">
-        <tbody>
-            <tr>
-                <th>Id</th>
-                <td>{{ user.id }}</td>
-            </tr>
-            <tr>
-                <th>Email</th>
-                <td>{{ user.email }}</td>
-            </tr>
-            <tr>
-                <th>Roles</th>
-                <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
-            </tr>
-            <tr>
-                <th>Password</th>
-                <td>{{ user.password }}</td>
-            </tr>
-            <tr>
-                <th>First_name</th>
-                <td>{{ user.firstName }}</td>
-            </tr>
-            <tr>
-                <th>Last_name</th>
-                <td>{{ user.lastName }}</td>
-            </tr>
-            <tr>
-                <th>Phone</th>
-                <td>{{ user.phone }}</td>
-            </tr>
-        </tbody>
-    </table>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-12">
+                <!-- Title Section with Name and First Name on the Same Line -->
+                <h1 class="d-flex align-items-center">
+                    <span class="me-3">{{ user.firstName }}</span>
+                    <span>{{ user.lastName }}</span>
+                </h1>
+            </div>
+        </div>
 
-    <a href="{{ path('app_user_index') }}">back to list</a>
+        <!-- Table of User Information -->
+        <div class="row">
+            <div class="col-12">
+                <table class="table">
+                    <tbody>
+                        <tr>
+                            <th>Email</th>
+                            <td>{{ user.email }}</td>
+                        </tr>
+                            <th>Roles</th>
+                            <td>{{ user.roles ? user.roles|json_encode : '' }}</td>
+                        </tr>
+                        <tr>
+                            <th>Téléphone</th>
+                            <td>{{ user.phone }}</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
-    <a href="{{ path('app_user_edit', {'id': user.id}) }}">edit</a>
-
-    {{ include('user/_delete_form.html.twig') }}
+        <!-- Action Links -->
+        <div class="row">
+            <div class="col-12">
+                <a href="{{ path('app_user_edit', {'id': user.id}) }}" class="btn btn-secondary ms-2">Edit</a>
+                {{ include('user/_delete_form.html.twig') }}
+            </div>
+        </div>
+    </div>
 {% endblock %}
